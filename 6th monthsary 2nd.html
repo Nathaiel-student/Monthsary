@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Match Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h1 {
+            margin-bottom: 1em;
+            color: white;
+            text-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+            font-size: 2.5em;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 15px;
+            position: relative;  /* Ensures absolute positioning of reward is based on this container */
+        }
+
+        .card {
+            width: 100px;
+            height: 100px;
+            background: #fff;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: scale(1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.1);
+        }
+
+        .card.flipped {
+            background: #ff6f91;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        footer {
+            margin-top: 20px;
+            color: white;
+        }
+
+        /* Positioning for the reward message in the center */
+        .reward {
+            display: none;
+            position: absolute;  /* Positioned in the center of the grid */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 80%;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .reward p {
+            font-size: 1.4em;
+            color: #ff3d71;
+            margin: 0.5em;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .reward .cool-message {
+            font-size: 1.8em;
+            color: #333;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            margin-top: 1em;
+            background: linear-gradient(45deg, #ff6f91, #ff9a9e);
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Heart Match Game</h1>
+    <div class="game-grid" id="gameGrid">
+        <!-- Game cards will be dynamically inserted here -->
+    </div>
+    <footer>Find all the matching hearts to win!</footer>
+    <div class="reward" id="reward">
+        <!-- This message will be shown upon winning -->
+    </div>
+
+    <script>
+        const gameGrid = document.getElementById('gameGrid');
+        const heartSymbols = ['❤️', '💖', '💘', '💕', '❤️', '💖', '💘', '💕'];
+
+        // Shuffle array
+        heartSymbols.sort(() => 0.5 - Math.random());
+
+        let firstCard = null;
+        let secondCard = null;
+        let lockBoard = false;
+        let matchedPairs = 0;
+
+        // Create and display cards
+        heartSymbols.forEach((symbol, index) => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.dataset.symbol = symbol;
+            card.addEventListener('click', () => flipCard(card));
+            gameGrid.appendChild(card);
+        });
+
+        function flipCard(card) {
+            if (lockBoard || card === firstCard || card.classList.contains('flipped')) return;
+
+            card.classList.add('flipped');
+            card.textContent = card.dataset.symbol;
+
+            if (!firstCard) {
+                firstCard = card;
+            } else {
+                secondCard = card;
+                checkForMatch();
+            }
+        }
+
+        function checkForMatch() {
+            if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+                disableCards();
+                matchedPairs++;
+                if (matchedPairs === heartSymbols.length / 2) {
+                    displayReward();
+                }
+            } else {
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            setTimeout(() => {
+                firstCard.classList.add('hidden');
+                secondCard.classList.add('hidden');
+                resetBoard();
+            }, 1000);
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flipped');
+                secondCard.classList.remove('flipped');
+                firstCard.textContent = '';
+                secondCard.textContent = '';
+                resetBoard();
+            }, 1000);
+        }
+
+        function resetBoard() {
+            firstCard = null;
+            secondCard = null;
+            lockBoard = false;
+        }
+
+        function displayReward() {
+            const reward = document.getElementById('reward');
+            reward.style.display = 'block';
+            reward.innerHTML = `
+                <p>Wow, you've matched all the hearts! 🎉</p>
+                <p class="cool-message">You did it! 😘</p>
+                <p>Your love is absolutely amazing, and I’m beyond lucky to have you in my life!</p>
+                <p>Happy 6th Monthsary, my love! ❤️ Forever and always!</p>`;
+        }
+    </script>
+</body>
+</html>

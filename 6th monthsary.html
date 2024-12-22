@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 6th Monthsary!</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle, #f0e6f6, #d8c1eb);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #2d2d2d;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 0.5em;
+            animation: glow 2s infinite;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #6a5acd;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 5px #fff, 0 0 15px #6a5acd, 0 0 20px #d8c1eb; }
+            50% { text-shadow: 0 0 15px #fff, 0 0 30px #6a5acd, 0 0 40px #d8c1eb; }
+        }
+
+        p {
+            font-size: 1.6em;
+            max-width: 700px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 1em 2em;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: #3d3d3d;
+        }
+
+        .heart {
+            margin: 2em 0;
+            font-size: 6em;
+            color: transparent;
+            background: linear-gradient(to right, #ff7eb9, #d1a7f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: beat 1.2s infinite ease-in-out;
+        }
+
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        button {
+            background: linear-gradient(135deg, #f7a3d1, #c6c4d2);
+            color: #fff;
+            border: none;
+            padding: 1em 2.5em;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #c6c4d2, #f7a3d1);
+            transform: translateY(-5px);
+        }
+
+        .hidden-message {
+            display: none;
+            margin-top: 1em;
+            font-size: 1.2em;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 1.2em;
+            border-radius: 20px;
+            border: 2px solid #fff;
+            animation: fadeIn 2s;
+            color: #444;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            margin-top: 2em;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <h1>Happy 6th Monthsary!</h1>
+    <div class="heart">❤️</div>
+    <p>My love, it’s been 6 wonderful months filled with happiness, laughter, and unforgettable memories. You light up my world in ways I never thought possible. Thank you for being the sunshine in my life.</p>
+    <button onclick="showMessage()">Reveal My Heart</button>
+    <div class="hidden-message" id="hiddenMessage">My Love,
+
+        I still remember the very first time we met, as if it were yesterday. Since then, every day with you has been a new chapter of joy, love, and endless laughter. You’ve brought so much light into my life, and I can’t imagine a single moment without you in it.
+        
+        When I look at you, I don’t just see my girlfriend—I see my best friend, my greatest support, my other half, and the love of my life. You’re more than everything I ever dreamed of; you’re everything I never even knew I needed. Your smile brightens up my darkest days, and your kindness fills my heart with warmth.
+        
+        I fall deeper in love with you every day, with everything you are—your heart, your spirit, your beauty, your laughter. You’ve shown me what true love is, and I’m beyond grateful for that. Your love is my safe place, and no matter what, you will always be my favorite person, my forever.
+        
+        With every day, my feelings for you grow stronger. And even though words can’t always capture what I feel, I will spend every moment trying to show you just how much you mean to me. You are my dream come true, my happiness, my everything.
+        
+        Happy Momentsary, my love. Here’s to forever, and beyond. ❤️</div>
+    <footer>Always yours, with all my heart.</footer>
+
+    <script>
+        function showMessage() {
+            const message = document.getElementById('hiddenMessage');
+            if (message.style.display === 'none' || !message.style.display) {
+                message.style.display = 'block';
+            } else {
+                message.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
